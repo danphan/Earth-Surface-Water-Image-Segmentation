@@ -2,9 +2,7 @@
 
 We use satellite images from Sentinel 2 to identify which portions of the image correspond to water, using the dataset from [Luo et al.'s 2021 paper](https://www.sciencedirect.com/science/article/pii/S0303243421001793). 
 
-For semantic segmentation, we use the U-Net architecture, with a Resnet50 backbone for our encoder. To this end, we only keep the R, G, and B bands of the 13 bands in Sentinel 2 (actually, Luo et al. already threw away 7 bands when making their dataset.)
-By keeping the RGB bands only, I can then use pre-trained ImageNet weights.
+For semantic segmentation, we use the U-Net++ architecture, with a Resnet34 backbone for our encoder. Although Sentinel-2 operates with 13 bands, Luo et al. in making their dataset have discarded the 7 lowest-resolution bands. Therefore, we have a 6-channel input images. Post-segmentation, each pixel will be classified as either water or land. Training was done from scratch, without use of pretrained layers.
 
-For training, we first freeze the pre-trained layers and optimize the decoder layers. Afterwards, we perform fine-tuning by unfreezing the pre-trained layers and performing gradient descent for another few epochs.
-
-This was all done in Pytorch, and was especially made convenient with TorchGeo.
+## Example Segmentations from the Trained Unet++ model
+![Segmentations](results.png)
