@@ -13,13 +13,12 @@ else:
     print(f"Did not find {data_path} directory, creating one...")
     data_path.mkdir(parents=True, exist_ok=True)
 
-# Download pizza, steak, sushi data
+# Download data
 with open(data_path / "dset-s2.zip", "wb") as f:
     request = requests.get('https://zenodo.org/record/5205674/files/dset-s2.zip')
-    print("Downloading pizza, steak, sushi data...")
     f.write(request.content)
 
-# Unzip pizza, steak, sushi data
+# Unzip data
 with zipfile.ZipFile(data_path / "dset-s2.zip", "r") as zip_ref:
     print("Unzipping data...") 
     zip_ref.extractall(data_path)
